@@ -4,6 +4,7 @@ library(AnvilDataModels)
 library(dplyr)
 library(readr)
 library(tidyr)
+library(stringr)
 
 
 argp <- arg_parser("write_phenotype_inventory_table.R", description="Write phenotype inventory table for shared workspaces.")
