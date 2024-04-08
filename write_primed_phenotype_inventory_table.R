@@ -22,6 +22,9 @@ workspaces <- read_tsv(argv$workspaces_file, col_names=c("workspace", "studies")
 #   "primed-data-topmed-1/PRIMED_CARDIA_TOPMED_DBGAP_PHS001612_V1_P1_HMB-IRB", "CARDIA"
 # )
 
+# Just a check:
+print(workspaces)
+
 # Loop over workspaces and pull the phenotype inventory information.
 results_list <- list()
 for (workspace in workspaces$workspace) {
