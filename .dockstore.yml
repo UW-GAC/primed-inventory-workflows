@@ -1,0 +1,7 @@
+version: 1.2
+workflows:
+   - name: primed_phenotype_inventory
+     subclass: WDL
+     primaryDescriptorPath: /primed_phenotype_inventory.wdl
+     testParameterFiles:
+         - /primed_phenotype_inventory.json
