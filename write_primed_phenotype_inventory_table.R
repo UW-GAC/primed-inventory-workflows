@@ -68,8 +68,8 @@ if (table_name %in% tables$table) {
   avtable_delete_values(output_table_name, original_results$phenotype_inventory_id)
 }
 
-tables <- list(tmp=results)
-setNames(tables, output_table_name)
+tables <- list(tmp=results) %>%
+  setNames(output_table_name)
 
 # Write the new results the table.
 # Note: anvil_import_tables will check job status and timeout after an hour (by default).
