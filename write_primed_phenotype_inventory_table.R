@@ -74,7 +74,8 @@ results <- results %>%
 
 # Delete the table before writing the new data, if it already exists.
 tables <- avtables(namespace=output_workspace_namespace, name=output_workspace_name)
-if (table_name %in% tables$table) {
+if output_table_name %in% tables$table) {
+  original_results <- avtable(output_table_name, namespace=output_workspace_namespace, name=output_workspace_name)
   avtable_delete_values(output_table_name, original_results$phenotype_inventory_id)
 }
 
