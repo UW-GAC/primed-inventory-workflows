@@ -47,7 +47,6 @@ for (workspace in workspaces$workspace) {
 }
 
 # Combine the results into a single data frame.
-id_column_name = quo_name(paste0(output_table_name, "_id"))
 results <- bind_rows(results_list, .id="workspace") %>%
   left_join(workspaces, by="workspace")
 
@@ -59,6 +58,7 @@ output_workspace_namespace = argv$output_workspace_namespace
 output_workspace_name = argv$output_workspace_name
 output_table_name = argv$output_table_name
 
+id_column_name = quo_name(paste0(output_table_name, "_id"))
 results <- results %>%
   select(
     # Set the id column appropriately, using the output table name.
