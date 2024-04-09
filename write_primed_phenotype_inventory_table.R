@@ -49,12 +49,7 @@ for (workspace in workspaces$workspace) {
 # Combine the results into a single data frame.
 id_column_name = quo_name(paste0(output_table_name, "_id"))
 results <- bind_rows(results_list, .id="workspace") %>%
-  left_join(workspaces, by="workspace") %>%
-  select(
-    # Set the id column appropriately, using the output table name.
-    !!id_column_name := phenotype_harmonized_id,
-    everything()
-  )
+  left_join(workspaces, by="workspace")
 
 # Set up output workspace info.
 # output_workspace = avworkspace() # This will be different when we actually run the script.
@@ -64,7 +59,14 @@ output_workspace_namespace = argv$output_workspace_namespace
 output_workspace_name = argv$output_workspace_name
 output_table_name = argv$output_table_name
 
-# Get the original results
+results <- results %>%
+  select(
+    # Set the id column appropriately, using the output table name.
+    !!id_column_name := phenotype_harmonized_id,
+    everything()
+  )
+
+# Delete the table before writing the new data, if it already exists.
 tables <- avtables(namespace=output_workspace_namespace, name=output_workspace_name)
 if (table_name %in% tables$table) {
   avtable_delete_values(output_table_name, original_results$phenotype_inventory_id)
