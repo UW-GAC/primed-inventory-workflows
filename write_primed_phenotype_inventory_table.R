@@ -47,12 +47,14 @@ for (workspace in workspaces$workspace) {
 }
 
 # Combine the results into a single data frame.
+id_column_name = quo_name(paste0(output_table_name, "_id"))
 results <- bind_rows(results_list, .id="workspace") %>%
   left_join(workspaces, by="workspace") %>%
-  rename(
-    phenotype_inventory_id=phenotype_harmonized_id
-  ) %>%
-  select(phenotype_inventory_id, studies, everything())
+  select(
+    # Set the id column appropriately, using the output table name.
+    !!id_column_name := phenotype_harmonized_id,
+    everything()
+  )
 
 # Set up output workspace info.
 # output_workspace = avworkspace() # This will be different when we actually run the script.
