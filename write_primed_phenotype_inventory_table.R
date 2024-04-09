@@ -29,13 +29,13 @@ print(workspaces)
 # Loop over workspaces and pull the phenotype inventory information.
 results_list <- list()
 for (workspace in workspaces$workspace) {
-  table_name <- "phenotype_harmonized"
+  input_table_name <- "phenotype_harmonized"
 
   workspace_namespace = str_split_1(workspace, pattern="/")[1]
   workspace_name = str_split_1(workspace, pattern="/")[2]
   tables <- avtables(namespace=workspace_namespace, name=workspace_name)
-  if (table_name %in% tables$table) {
-    table <- avtable(table_name, namespace=workspace_namespace, name=workspace_name)
+  if (input_table_name %in% tables$table) {
+    table <- avtable(input_table_name, namespace=workspace_namespace, name=workspace_name)
     x <- table %>%
       # phenotype_harmonized_id is needed to make the table unique.
       select(phenotype_harmonized_id, table=domain, n_subjects, n_rows, file_path)
