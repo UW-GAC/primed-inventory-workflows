@@ -63,6 +63,12 @@ results <- results %>%
   select(
     # Set the id column appropriately, using the output table name.
     !!id_column_name := phenotype_harmonized_id,
+    studies,
+    workspace,
+    table,
+    n_rows,
+    n_subjects,
+    file_path,
     everything()
   )
 
