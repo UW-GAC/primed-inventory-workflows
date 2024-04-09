@@ -34,7 +34,7 @@ task write_primed_phenotype_inventory_table {
         Rscript /usr/local/primed-inventory-workflows/write_primed_phenotype_inventory_table.R \
             --workspaces-file ~{write_map(workspaces)} \
             --output-workspace-name ~{output_workspace_name} \
-            --output-workspace-namespace ~{output_workspace_namespace}
+            --output-workspace-namespace ~{output_workspace_namespace} \
             --output-table-name ~{output_table}
     >>>
 
