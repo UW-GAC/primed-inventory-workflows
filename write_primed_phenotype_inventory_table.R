@@ -71,6 +71,8 @@ output_table_name = argv$output_table_name
 
 id_column_name = quo_name(paste0(output_table_name, "_id"))
 results <- results %>%
+  # We separated workspace into namespace and name, so we don't need it anymore.
+  select(-workspace) %>%
   select(
     # Set the id column appropriately, using the output table name.
     !!id_column_name := phenotype_harmonized_id,
@@ -81,7 +83,7 @@ results <- results %>%
     n_rows,
     n_subjects,
     file_path,
-    everything()
+    everything(),
   )
 
 # Delete the table before writing the new data, if it already exists.
