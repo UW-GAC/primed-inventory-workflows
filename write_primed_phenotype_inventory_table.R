@@ -15,7 +15,7 @@ argp <- add_argument(argp, "--output-table-name", help="Name of the data table t
 argv <- parse_args(argp)
 
 # Read in the workspaces.
-workspaces <- read_tsv(argv$workspaces_file, col_names=c("workspace", "studies"))
+x <- read_tsv(argv$workspaces_file, col_names=c("workspace", "studies"))
 # workspaces <- tribble(
 #   ~workspace, ~studies,
 #   "primed-data-prevent-1/PRIMED_ARIC_DBGAP_PHS000280_V8_P2_HMB-IRB", "ARIC",
@@ -23,16 +23,27 @@ workspaces <- read_tsv(argv$workspaces_file, col_names=c("workspace", "studies")
 #   "primed-data-topmed-1/PRIMED_CARDIA_TOPMED_DBGAP_PHS001612_V1_P1_HMB-IRB", "CARDIA"
 # )
 
+# Split workspace into namespace and name.
+workspaces <- x %>%
+  separate(
+    workspace,
+    into=c("workspace_namespace", "workspace_name"),
+    sep="/",
+    remove=FALSE
+  )
+
 # Just a check:
 print(workspaces)
 
 # Loop over workspaces and pull the phenotype inventory information.
 results_list <- list()
-for (workspace in workspaces$workspace) {
+for (i in seq_along(workspaces$workspace) {
   input_table_name <- "phenotype_harmonized"
 
-  workspace_namespace = str_split_1(workspace, pattern="/")[1]
-  workspace_name = str_split_1(workspace, pattern="/")[2]
+  workspace = workspaces$workspace[i]
+  workspace_namespace = workspaces$workspace_namespace[i]
+  workspace_name = workspaces$workspace_name[i]
+
   tables <- avtables(namespace=workspace_namespace, name=workspace_name)
   if (input_table_name %in% tables$table) {
     table <- avtable(input_table_name, namespace=workspace_namespace, name=workspace_name)
@@ -64,7 +75,8 @@ results <- results %>%
     # Set the id column appropriately, using the output table name.
     !!id_column_name := phenotype_harmonized_id,
     studies,
-    workspace,
+    workspace_namespace,
+    workspace_name,
     table,
     n_rows,
     n_subjects,
