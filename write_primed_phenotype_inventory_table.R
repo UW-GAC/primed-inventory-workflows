@@ -47,9 +47,8 @@ for (i in seq_along(workspaces$workspace)) {
   tables <- avtables(namespace=workspace_namespace, name=workspace_name)
   if (input_table_name %in% tables$table) {
     table <- avtable(input_table_name, namespace=workspace_namespace, name=workspace_name)
-    x <- table %>%
-      # phenotype_harmonized_id is needed to make the table unique.
-      select(phenotype_harmonized_id, table=domain, n_subjects, n_rows, file_path)
+    # Keep all rows in the table for now.
+    x <- table
   }
   else {
     x = tibble()
@@ -85,6 +84,7 @@ results <- results %>%
     file_path,
     everything(),
   )
+print(results)
 
 # Delete the table before writing the new data, if it already exists.
 tables <- avtables(namespace=output_workspace_namespace, name=output_workspace_name)
