@@ -46,9 +46,7 @@ for (i in seq_along(workspaces$workspace)) {
 
   tables <- avtables(namespace=workspace_namespace, name=workspace_name)
   if (input_table_name %in% tables$table) {
-    table <- avtable(input_table_name, namespace=workspace_namespace, name=workspace_name)
-    # Keep all rows in the table for now.
-    x <- table
+    x <- avtable(input_table_name, namespace=workspace_namespace, name=workspace_name)
   }
   else {
     x = tibble()
@@ -72,17 +70,9 @@ id_column_name = quo_name(paste0(output_table_name, "_id"))
 results <- results %>%
   # We separated workspace into namespace and name, so we don't need it anymore.
   select(-workspace) %>%
-  select(
+  rename(
     # Set the id column appropriately, using the output table name.
-    !!id_column_name := phenotype_harmonized_id,
-    studies,
-    workspace_namespace,
-    workspace_name,
-    table,
-    n_rows,
-    n_subjects,
-    file_path,
-    everything(),
+    !!id_column_name := phenotype_harmonized_id
   )
 print(results)
 
