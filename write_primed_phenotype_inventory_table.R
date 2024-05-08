@@ -46,10 +46,7 @@ for (i in seq_along(workspaces$workspace)) {
 
   tables <- avtables(namespace=workspace_namespace, name=workspace_name)
   if (input_table_name %in% tables$table) {
-    table <- avtable(input_table_name, namespace=workspace_namespace, name=workspace_name)
-    x <- table %>%
-      # phenotype_harmonized_id is needed to make the table unique.
-      select(phenotype_harmonized_id, table=domain, n_subjects, n_rows, file_path)
+    x <- avtable(input_table_name, namespace=workspace_namespace, name=workspace_name)
   }
   else {
     x = tibble()
@@ -73,18 +70,11 @@ id_column_name = quo_name(paste0(output_table_name, "_id"))
 results <- results %>%
   # We separated workspace into namespace and name, so we don't need it anymore.
   select(-workspace) %>%
-  select(
+  rename(
     # Set the id column appropriately, using the output table name.
-    !!id_column_name := phenotype_harmonized_id,
-    studies,
-    workspace_namespace,
-    workspace_name,
-    table,
-    n_rows,
-    n_subjects,
-    file_path,
-    everything(),
+    !!id_column_name := phenotype_harmonized_id
   )
+print(results)
 
 # Delete the table before writing the new data, if it already exists.
 tables <- avtables(namespace=output_workspace_namespace, name=output_workspace_name)
