@@ -62,8 +62,14 @@ for (i in seq_along(workspaces$workspace)) {
       x <- x %>%
         select(
           dataset_id = !!id_column_name,
-          reference_assembly
+          reference_assembly,
+          sample_set_id
         )
+      # Pull the sample set table and calculate the number of samples
+      number_of_samples <- avtable("sample_set", namespace=workspace_namespace, name=workspace_name) %>%
+        unnest_set_table() %>%
+        count(sample_set_id, name="n_samples")
+      x <- x %>% left_join(number_of_samples, by="sample_set_id")
     }
     else {
       x = tibble()
