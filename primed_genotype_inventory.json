@@ -1,0 +1,10 @@
+{
+    "primed_genotype_inventory.workspaces": {
+        "primed-data-prevent-1/PRIMED_ARIC_DBGAP_PHS000280_V8_P2_HMB-IRB": "ARIC",
+        "primed-data-dprism-1/PRIMED_RPGEH_DBGAP_PHS000788_V2_P3_HMB-IRB-NPU": "GERA, RPGEH",
+        "primed-data-topmed-1/PRIMED_CARDIA_TOPMED_DBGAP_PHS001612_V1_P1_HMB-IRB": "CARDIA"
+    },
+    "primed_genotype_inventory.output_workspace_namespace": "primed-adrienne",
+    "primed_genotype_inventory.output_workspace_name": "primed-sandbox",
+    "primed_genotype_inventory.output_table": "genotype_inventory"
+}
