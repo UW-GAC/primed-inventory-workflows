@@ -60,7 +60,10 @@ for (i in seq_along(workspaces$workspace)) {
       # Subset to and rename the id column.
       id_column_name = quo_name(paste0(input_table_name, "_id"))
       x <- x %>%
-        select(dataset_id = !!id_column_name)
+        select(
+          dataset_id = !!id_column_name,
+          reference_assembly
+        )
     }
     else {
       x = tibble()
