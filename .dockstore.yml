@@ -5,7 +5,6 @@ workflows:
      primaryDescriptorPath: /primed_phenotype_inventory.wdl
      testParameterFiles:
          - /primed_phenotype_inventory.json
-workflows:
    - name: primed_genotype_inventory
      subclass: WDL
      primaryDescriptorPath: /primed_genotype_inventory.wdl
