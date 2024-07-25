@@ -1,14 +1,44 @@
 # primed-inventory-workflows
 Workflows for generating the PRIMED inventory workspace
 
+This repository provides WDL workflows for generating inventories of PRIMED data in AnVIL.
 
-# Notes for development
+Each workflow takes an array of workspaces and associated studies as input.
+This input can be automatically created by Coordinating Center staff using the PRIMED AnVIL Consortium Manager app.
 
-Decisions after discussion with Stephanie:
 
-- Input should be a json/map where the key is billingproject/workspace and the value is the string of studies
-  - Use the write map function in WDL! See validation workflows - they use it
-- Write directly to the final phenotype inventory table - do not create a tsv
-- Delete the final phenotype inventory table and rewrite each time the workflow is run
-  - Look at avtables_delete_values - cannot delete an entire table using the AnVIL Bioconductor R package
-- What is the primary key of the phenotype_inventory table? can just use phenotype_harmonized_id from the phenotype_harmonized table, need to rename to phenotype_inventory_id per AnVIL requirements
+## primed_phenotype_inventory
+
+This workflow pulls all records from the `phenotype_harmonized` table in the input workspace, concatenates them, and writes the result to a data table in the output workspace.
+It also adds columns indicating the source workspace where the records were obtained.
+
+### Inputs
+
+- `input_workspaces`: An array of workspace names to pull data from. This should be a "map" type with the workspace as the key and the studies associated with that workspace as the value. (Example: {"workspace-namespace/workspace-name": "study"})
+- `output_workspace_namespace`: The namespace of the workspace to write the inventory to.
+- `output_workspace_name`: The name of the workspace to write the inventory to.
+- `output_table_name`: The name of the table to write the inventory to.
+
+
+## primed_genotype_inventory
+
+This workflow pulls all records from the genotype dataset tables in the input workspace, concatenates them, and writes the result to a data table in the output workspace.
+It also adds columns indicating the source workspace where the records were obtained.
+
+### Inputs
+
+- `input_workspaces`: An array of workspace names to pull data from. This should be a "map" type with the workspace as the key and the studies associated with that workspace as the value. (Example: {"workspace-namespace/workspace-name": "study"})
+- `output_workspace_namespace`: The namespace of the workspace to write the inventory to.
+- `output_workspace_name`: The name of the workspace to write the inventory to.
+- `output_table_name`: The name of the table to write the inventory to.
+
+
+## primed_inventories
+
+This workflow runs both the `primed_phenotype_inventory` and the `primed_phenotype_inventory` workflows.
+
+### Inputs
+
+- `input_workspaces`: An array of workspace names to pull data from. This should be a "map" type with the workspace as the key and the studies associated with that workspace as the value. (Example: {"workspace-namespace/workspace-name": "study"})
+- `output_workspace_namespace`: The namespace of the workspace to write the inventory to.
+- `output_workspace_name`: The name of the workspace to write the inventory to.
