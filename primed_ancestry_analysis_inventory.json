@@ -1,0 +1,10 @@
+{
+    "primed_ancestry_analysis_inventory.workspaces": {
+        "primed-data-primed-cancer-open/PRIMED_LUNG_PMID35915169": "GWAS Catalog, Lung-GSRs",
+        "primed-data-cc-open/PRIMED_PAN_UKBB_GSR_ANTHROPOMETRY": "UKBB",
+        "primed-data-prevent-1/PRIMED_ARIC_DBGAP_PHS000280_V8_P2_HMB-IRB": "ARIC"
+    },
+    "primed_ancestry_analysis_inventory.output_workspace_namespace": "primed-adrienne",
+    "primed_ancestry_analysis_inventory.output_workspace_name": "primed-sandbox",
+    "primed_ancestry_analysis_inventory.output_table": "ancestry_analysis_inventory"
+}
