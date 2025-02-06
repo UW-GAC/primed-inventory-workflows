@@ -1,5 +1,5 @@
 library(argparser)
-library(AnVILGCP)
+library(AnVIL)
 library(AnvilDataModels)
 library(dplyr)
 library(readr)
