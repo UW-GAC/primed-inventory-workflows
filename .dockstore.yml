@@ -15,6 +15,11 @@ workflows:
      primaryDescriptorPath: /primed_association_analysis_inventory.wdl
      testParameterFiles:
          - /primed_association_analysis_inventory.json
+   - name: primed_ancestry_analysis_inventory
+     subclass: WDL
+     primaryDescriptorPath: /primed_ancestry_analysis_inventory.wdl
+     testParameterFiles:
+         - /primed_ancestry_analysis_inventory.json
    - name: primed_inventories
      subclass: WDL
      primaryDescriptorPath: /primed_inventories.wdl
