@@ -22,7 +22,7 @@ It also adds columns indicating the source workspace where the records were obta
 ### Available workflows and associated tables
 
 
-| Workflow    | Tables combined from input workspace |
+| Workflow    | Tables combined from input workspaces |
 | -------- | ------- |
 | `primed_phenotype_inventory`            | `phenotype_harmonized` |
 | `primed_genotype_inventory`             | `array_dataset` <br> `imputation_dataset` <br> `sequencing_dataset` <br> `simulation_dataset` |
