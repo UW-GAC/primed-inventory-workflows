@@ -68,7 +68,7 @@ for (i in seq_along(workspaces$workspace)) {
     #   x <- x %>% left_join(number_of_samples, by="sample_set_id")
     }
     else {
-      x = tibble(association_analysis_id = character())
+      x = tibble(ancestry_analysis_id = character())
     }
     workspace_results_list[[input_table_name]] <- x
   }
