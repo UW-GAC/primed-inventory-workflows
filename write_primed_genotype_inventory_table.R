@@ -20,7 +20,8 @@ x <- read_tsv(argv$workspaces_file, col_names=c("workspace", "studies"))
 #   ~workspace, ~studies,
 #   "primed-data-prevent-1/PRIMED_ARIC_DBGAP_PHS000280_V8_P2_HMB-IRB", "ARIC",
 #   "primed-data-dprism-1/PRIMED_RPGEH_DBGAP_PHS000788_V2_P3_HMB-IRB-NPU", "GERA, RPGEH",
-#   "primed-data-topmed-1/PRIMED_CARDIA_TOPMED_DBGAP_PHS001612_V1_P1_HMB-IRB", "CARDIA"
+#   "primed-data-topmed-1/PRIMED_CARDIA_TOPMED_DBGAP_PHS001612_V1_P1_HMB-IRB", "CARDIA",
+#   "primed-sims-1/PRIMED_SIM_1000G_600KSAMP", "Simulated data",
 # )
 
 genotype_tables <- c(
@@ -66,10 +67,12 @@ for (i in seq_along(workspaces$workspace)) {
           sample_set_id
         )
       # Pull the sample set table and calculate the number of samples
-      number_of_samples <- avtable("sample_set", namespace=workspace_namespace, name=workspace_name) %>%
-        unnest_set_table() %>%
-        count(sample_set_id, name="n_samples")
-      x <- x %>% left_join(number_of_samples, by="sample_set_id")
+      if ("sample_set" %in% tables$table) {
+        number_of_samples <- avtable("sample_set", namespace=workspace_namespace, name=workspace_name) %>%
+          unnest_set_table() %>%
+          count(sample_set_id, name="n_samples")
+        x <- x %>% left_join(number_of_samples, by="sample_set_id")
+      }
     }
     else {
       x = tibble()

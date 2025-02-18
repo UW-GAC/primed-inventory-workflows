@@ -70,6 +70,10 @@ for (i in seq_along(workspaces$workspace)) {
     else {
       x = tibble(association_analysis_id = character())
     }
+
+    # Handle trait_unit = 1 in simulation workspace.
+    x$trait_unit <- as.character(x$trait_unit)
+
     workspace_results_list[[input_table_name]] <- x
   }
   results_list[[workspace]] <- bind_rows(workspace_results_list)
