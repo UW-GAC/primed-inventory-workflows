@@ -94,8 +94,9 @@ output_table_name = argv$output_table_name
 
 id_column_name = quo_name(paste0(output_table_name, "_id"))
 results <- results %>%
-  select(association_analysis_id, everything()) %>%
-  rename(!!id_column_name := association_analysis_id) %>%
+  rename(id_in_table = association_analysis_id) %>%
+  mutate(!!id_column_name := paste(workspace_name, "_", id_in_table, sep="")) %>%
+  select(!!id_column_name, everything()) %>%
   # We separated workspace into namespace and name, so we don't need it anymore.
   select(-workspace)
 print(results)
