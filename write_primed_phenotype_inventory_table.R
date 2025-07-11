@@ -72,7 +72,7 @@ results <- results %>%
   select(-workspace) %>%
   rename(id_in_table = phenotype_harmonized_id) %>%
   mutate(!!id_column_name := paste(workspace_name, "_", id_in_table, sep="")) %>%
-  select(!!id_column_name, everything()) %>%
+  select(!!id_column_name, everything())
 print(results)
 
 # Delete the table before writing the new data, if it already exists.
