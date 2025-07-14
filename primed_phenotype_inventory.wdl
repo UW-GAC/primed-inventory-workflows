@@ -39,6 +39,6 @@ task write_primed_phenotype_inventory_table {
     >>>
 
     runtime {
-        docker: "uwgac/primed-inventory-workflows:0.1.1"
+        docker: "uwgac/primed-inventory-workflows:0.3.2"
     }
 }
