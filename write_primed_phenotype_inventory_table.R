@@ -38,6 +38,7 @@ print(workspaces)
 # Loop over workspaces and pull the phenotype inventory information.
 results_list <- list()
 for (i in seq_along(workspaces$workspace)) {
+  print(paste("Processing workspace:", workspaces$workspace[i]))
   input_table_name <- "phenotype_harmonized"
 
   workspace = workspaces$workspace[i]
